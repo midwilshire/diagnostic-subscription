@@ -4,6 +4,9 @@ pool:
   vmImage: ubuntu-latest
 
 parameters:
+- name: SubscriptionID
+  displayName: Subscription ID
+  type: string
 - name: settingName
   displayName: Setting Name
   type: string
@@ -17,8 +20,24 @@ parameters:
   displayName: eventHubAuthorizationRuleId
   type: string
 
+
 jobs:
 - job:
   steps:
   - script: echo Hello world!
     displayName: 'Placeholder step'
+
+  - task: AzureResourceManagerTemplateDeployment@3
+    inputs:
+      deploymentScope: 'Subscription'
+      azureResourceManagerConnection: 'nx-devops'
+      subscriptionId: ${{ parameters.SubscriptionID }}
+      location: 'East US 2'
+      templateLocation: 'Linked artifact'
+      csmFile: 'src/main.bicep'
+      deploymentMode: 'Incremental'
+      overrideParameters: >
+        -settingName ${{ parameters.settingName }}
+        -workspaceId ${{ parameters.workspaceId }}
+        -eventHubName ${{ parameters.eventHubName }}
+        -eventHubAuthorizationRuleId ${{ parameters.eventHubAuthorizationRuleId }}
