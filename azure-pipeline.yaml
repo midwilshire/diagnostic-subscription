@@ -3,6 +3,20 @@ trigger: none
 pool:
   vmImage: ubuntu-latest
 
+parameters:
+- name: settingName
+  displayName: Setting Name
+  type: string
+- name: workspaceId
+  displayName: Workspace Id
+  type: string
+- name: eventHubName
+  displayName: EventHubName
+  type: string
+- name: eventHubAuthorizationRuleId
+  displayName: eventHubAuthorizationRuleId
+  type: string
+
 jobs:
 - job:
   steps:
