@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "settingName": {
+      "value": "test"
+    },
+    "workspaceId": {
+      "value": "/subscriptions/3e5788b9-22bc-4121-a5ff-4267762d02ea/resourcegroups/Lab-workshop/providers/microsoft.operationalinsights/workspaces/lab-workshop-law"
+    },
+    "eventHubAuthorizationRuleId": {
+      "value": "/subscriptions/3e5788b9-22bc-4121-a5ff-4267762d02ea/resourceGroups/Lab-workshop/providers/Microsoft.EventHub/namespaces/lab-workshop-eh/authorizationrules/RootManageSharedAccessKey"
+    },
+    "eventHubName": {
+      "value": "my-eventhub"
+    }
+  }
+}
