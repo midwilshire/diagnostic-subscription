@@ -30,7 +30,7 @@ jobs:
   - task: AzureResourceManagerTemplateDeployment@3
     inputs:
       deploymentScope: 'Subscription'
-      azureResourceManagerConnection: 'nx-devops'
+      azureResourceManagerConnection: 'nx-devops-mgmt'
       subscriptionId: ${{ parameters.SubscriptionID }}
       location: 'East US 2'
       templateLocation: 'Linked artifact'
