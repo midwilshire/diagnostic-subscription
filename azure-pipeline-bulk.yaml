@@ -1,0 +1,46 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+parameters:
+- name: subscriptions
+  type: object
+  default:
+  - 1e35dc95-64a6-48a0-a5ff-8cd94542c990
+  - 1e35dc95-64a6-48a0-a5ff-8cd94542c990
+- name: settingName
+  displayName: Diagnostic Setting Profile Name
+  type: string
+- name: workspaceId
+  displayName: Workspace Resource ID
+  type: string
+- name: eventHubName
+  displayName: EventHubName
+  type: string
+- name: eventHubAuthorizationRuleId
+  displayName: SAS Policy ARM ID
+  type: string
+
+
+jobs:
+- job:
+  steps:
+  - script: echo Logging fixes!
+    displayName: 'Welcome step'
+
+  - ${{ each subscription in parameters.subscriptions }}:
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Subscription'
+        azureResourceManagerConnection: 'nx-devops-mgmt'
+        subscriptionId: ${{ subscription }}
+        location: 'East US 2'
+        templateLocation: 'Linked artifact'
+        csmFile: 'src/main.bicep'
+        deploymentMode: 'Incremental'
+        overrideParameters: >
+          -settingName ${{ parameters.settingName }}
+          -workspaceId ${{ parameters.workspaceId }}
+          -eventHubName ${{ parameters.eventHubName }}
+          -eventHubAuthorizationRuleId ${{ parameters.eventHubAuthorizationRuleId }}
